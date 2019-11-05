@@ -37,12 +37,43 @@ class User extends Controller
     $this->view('user/add');
   }
 
+  public function edit($id = null){
+    if (is_numeric($id)) {
+      $Users = $this->model('Users');
+      $data = $Users::findById($id);
+      $this->view('user/edit', ['user' => $data]);
+    } else {
+      $this->pageNotFound();
+    }
+  }
+
   public function create(){
     $nome = $_POST['nome'];
+    $idade = $_POST['idade'];
     $Users = $this->model('Users');
-    $retorno = $Users::insert($nome);
+    $retorno = $Users::insert($nome, $idade);
     $data = $Users::findAll();
     $this->view('user/index', ['users' => $data]);
+  }
+
+  public function update($id){
+    $nome = $_POST['nome'];
+    $idade = $_POST['idade'];
+    $Users = $this->model('Users');
+    $retorno = $Users::update($id, $nome, $idade);
+    $data = $Users::findAll();
+    $this->view('user/index', ['users' => $data]);
+  }
+
+  public function delete($id = null){
+    if (is_numeric($id)) {
+      $Users = $this->model('Users');
+      $retorno = $Users::delete($id);
+      $data = $Users::findAll();
+      $this->view('user/index', ['users' => $data]);
+    } else {
+      $this->pageNotFound();
+    }
   }
 
 

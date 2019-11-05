@@ -34,17 +34,42 @@ class Users
       ':ID' => $id
     ));
 
-    return $result->fetchAll(PDO::FETCH_ASSOC);
+    return $result->fetch();
   }
 
-  public function insert($nome){
+  public function insert($nome, $idade){
     $conn = new Database();  
-    $result = $conn->executeQuery('INSERT INTO users (name) VALUES (:NOME)', 
-      array(':NOME' => $nome)
+    $result = $conn->executeQuery('INSERT INTO users (name, idade)
+     VALUES (:NOME, :IDADE)', 
+      array(':NOME' => $nome, ':IDADE' => $idade)
     );
       
     return $result->fetchAll(PDO::FETCH_ASSOC);
     
   }
+
+  public function update($id, $nome, $idade){
+    $conn = new Database();  
+    $result = $conn->executeQuery('UPDATE users SET 
+    name = :NOME, 
+    idade = :IDADE
+    WHERE id = :ID ', 
+      array(':NOME' => $nome, ':IDADE' => $idade, ':ID' => $id)
+    );
+      
+    return $result->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+
+  public static function delete(int $id)
+  {
+    $conn = new Database();
+    $result = $conn->executeQuery('DELETE FROM users WHERE id = :ID', array(
+      ':ID' => $id
+    ));
+
+    return $result->fetchAll(PDO::FETCH_ASSOC);
+  }
+
 
 }

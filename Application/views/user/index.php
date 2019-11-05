@@ -8,6 +8,8 @@
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Name</th>
+              <th scope="col">Idade</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -15,6 +17,9 @@
             <tr>
               <td><?= $user['id'] ?></td>
               <td><?= $user['name'] ?></td>
+              <td><?= $user['idade'] ?></td>
+              <td><a href="/user/delete/<?= $user['id'] ?>" class="btn btn-danger btn-send"> Excluir</a>
+              <a href="/user/edit/<?= $user['id'] ?>" class="btn btn-warning btn-send"> Editar</a></td>
             </tr>
             <?php }?>
           </tbody>
